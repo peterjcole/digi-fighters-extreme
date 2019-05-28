@@ -19,5 +19,11 @@ end
 
 get '/named-cat' do
   @name = params[:name]
+  @colour = params[:colour]
+  erb(:bindex)
+end
+
+post '/named-cat' do
+  @name = params[:name]
   erb(:bindex)
 end
