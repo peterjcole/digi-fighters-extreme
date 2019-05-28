@@ -18,12 +18,13 @@ get '/random-cat' do
 end
 
 get '/named-cat' do
-  @name = params[:name]
-  @colour = params[:colour]
+  # @name = params[:name]
+  # @colour = params[:colour]
   erb(:bindex)
 end
 
 post '/named-cat' do
   @name = params[:name]
+  @colour = params[:colour]
   erb(:bindex)
 end
