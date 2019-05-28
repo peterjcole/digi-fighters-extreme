@@ -12,6 +12,12 @@ get '/public' do
   "<h1>Hello</h1>"
 end
 
-get '/cat' do
-  "<img src=\"http://f.cl.ly/items/0k0v3e2X3l2f3i1n1Y19/Screen%20Shot%202013-09-10%20at%2011.32.00.png\" style=\"border: medium dashed pink\">"
+get '/random-cat' do
+  @name = %w[Ironman Superman Woman goingtokillyou].sample
+  erb(:bindex)
+end
+
+get '/named-cat' do
+  @name = params[:name]
+  erb(:bindex)
 end
