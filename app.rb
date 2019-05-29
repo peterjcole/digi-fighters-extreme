@@ -7,10 +7,14 @@ class Battle < Sinatra::Base
     erb(:index)
   end
 
+  get '/play' do   
+    erb(:names)
+  end
+
   post '/names' do 
     session[:player_one] = params[:PlayerOne]
     session[:player_two] = params[:PlayerTwo]
-    erb(:names)
+    redirect '/play'
   end
 
   run! if app_file == $0
