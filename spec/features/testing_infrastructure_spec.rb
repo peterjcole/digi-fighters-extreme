@@ -9,4 +9,3 @@ feature 'Battle' do
     expect(page).to have_content "Thanos Fat Thor"
   end 
 end 
-
