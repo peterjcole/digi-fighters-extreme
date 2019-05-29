@@ -17,5 +17,9 @@ class Battle < Sinatra::Base
     redirect '/play'
   end
 
+  post '/play' do
+    'Player 1 has attacked'
+  end
+
   run! if app_file == $0
  end

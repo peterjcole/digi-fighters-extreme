@@ -17,6 +17,7 @@ require './app.rb'
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
+require './spec/features/web_helpers'
 Capybara.app = Battle
 ENV['APP_ENV'] = 'test'
 RSpec.configure do |config|
