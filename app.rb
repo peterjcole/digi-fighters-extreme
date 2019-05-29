@@ -1,30 +1,10 @@
-require 'sinatra'
+require 'sinatra/base'
 
-get '/' do
- "Hello"
-end
+class Battle < Sinatra::Base
+  
+  get '/' do
+    "Testing infrastructure working"
+  end
 
-get '/secret' do
-  "Santa is real and in the country"
-end
-
-get '/public' do
-  "<h1>Hello</h1>"
-end
-
-get '/random-cat' do
-  @name = %w[Ironman Superman Woman goingtokillyou].sample
-  erb(:bindex)
-end
-
-get '/named-cat' do
-  # @name = params[:name]
-  # @colour = params[:colour]
-  erb(:bindex)
-end
-
-post '/named-cat' do
-  @name = params[:name]
-  @colour = params[:colour]
-  erb(:bindex)
-end
+  run! if app_file == $0
+ end
