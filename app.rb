@@ -7,8 +7,8 @@ class Battle < Sinatra::Base
     erb(:index)
   end
 
-  get '/play' do   
-    erb(:names)
+  get '/play' do
+    erb(:play)
   end
 
   post '/names' do 
