@@ -1,7 +1,7 @@
-<%= $player_one.name %>
+<%= $game.players[:player_one].name %>
 <br>
-<%= $player_two.name %> 
+<%= $game.players[:player_two].name %> 
 <p id="player2_HP">
-  <%= $player_two.hp %> 
+  <%= $game.players[:player_two].hp %> 
 </p>
 <form action="/attack" method="post"><button type="submit">Attack</button></form>
