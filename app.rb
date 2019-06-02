@@ -16,12 +16,12 @@ class Battle < Sinatra::Base
   post '/names' do 
     player_one = Player.new(params[:PlayerOne])
     player_two = Player.new(params[:PlayerTwo])
-    $game = Game.new(player_one, player_two)
+    Game.create(player_one, player_two)
     redirect '/play'
   end
 
   post '/attack' do
-    $game.attack_next
+    Game.instance.attack_next
     redirect '/attack'
   end
 

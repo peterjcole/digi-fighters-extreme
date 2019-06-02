@@ -40,4 +40,16 @@ feature 'Battle' do
       expect(page).to have_content 'Thanos was attacked by Fat Thor!'
     end
   end
+
+  feature "player loses the game" do
+    scenario 'player 2 loses after being attacked 5 times' do
+      sign_in_and_play
+      8.times do 
+        click_button 'Attack'
+        click_button 'Go back'
+      end
+      click_button 'Attack'
+      expect(page).to have_content "Fat Thor died and loses the game! Thanos wins!"
+    end
+  end
 end 

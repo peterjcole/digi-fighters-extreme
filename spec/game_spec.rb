@@ -5,12 +5,15 @@ describe 'game' do
   let(:player_one) { double(:player) }
   let(:player_two) { double(:player) }
 
-  
-  describe '#attack' do
-    it 'calls take_hit on the correct player' do
-      pending("#attack is private, not sure if temporary yet")
-      expect(player_two).to receive(:take_hit)
-      game.attack(:player_two)
+  describe '#player_one' do
+    it 'returns player one' do
+      expect(game.player_one).to be player_one
+    end
+  end
+
+  describe '#player_two' do
+    it 'returns player two' do
+      expect(game.player_two).to be player_two
     end
   end
 
@@ -47,79 +50,55 @@ describe 'game' do
     end
   end
 
-  describe '#last_attacker_name' do
+  describe '#last_attack_text' do
     before(:each) do
       allow(player_one).to receive(:take_hit)
       allow(player_two).to receive(:take_hit)
+      allow(player_one).to receive(:name).and_return("Player One")
+      allow(player_two).to receive(:name).and_return("Player Two")
+      allow(player_one).to receive(:hp).and_return 50
+      allow(player_two).to receive(:hp).and_return 50
     end
 
-    it 'calls #name on player_one after first attack' do
-      game.attack_next
-      expect(player_one).to receive(:name)
-      game.last_attacker_name
+    context 'players still alive' do
+      it 'returns the correct text after one attack' do
+        game.attack_next
+        expect(game.last_attack_text).to eq("Player Two was attacked by Player One!")
+      end
+
+      it 'returns the correct text after two attacks' do
+        game.attack_next
+        game.attack_next
+        expect(game.last_attack_text).to eq("Player One was attacked by Player Two!")
+      end
     end
 
-    it 'returns the return value of #name' do
-      allow(player_one).to receive(:name).and_return 'Player One'
-      game.attack_next
-      expect(game.last_attacker_name).to eq('Player One')
-    end
-
-    it "returns player two's name after second attack" do
-      allow(player_one).to receive(:name)
-      allow(player_two).to receive(:name).and_return 'Player Two'
-      game.attack_next
-      game.attack_next
-      expect(game.last_attacker_name).to eq('Player Two')
-    end
-
-    it "returns player one's name after 49th attack" do
-      allow(player_one).to receive(:name).and_return 'Player One'
-      allow(player_two).to receive(:name)
-      49.times { game.attack_next }
-      expect(game.last_attacker_name).to eq('Player One')
+    context 'a player has died' do
+      it 'returns text saying player one has died when HP is 0' do
+        allow(player_two).to receive(:hp).and_return 0
+        9.times { game.attack_next }
+        expect(game.last_attack_text).to eq("Player Two died and loses the game! Player One wins!")
+      end
     end
   end
 
-  describe '#last_attacker_name' do
-    before(:each) do
-      allow(player_one).to receive(:take_hit)
-      allow(player_two).to receive(:take_hit)
-    end
-
-    it 'calls #name on player_two after first attack' do
-      game.attack_next
-      expect(player_two).to receive(:name)
-      game.last_attacked_name
-    end
-
-    it 'returns the return value of #name' do
-      allow(player_two).to receive(:name).and_return 'Player Two'
-      game.attack_next
-      expect(game.last_attacked_name).to eq('Player Two')
-    end
-
-    it "returns player one's name after second attack" do
-      allow(player_one).to receive(:name).and_return 'Player One'
-      allow(player_two).to receive(:name)
-      game.attack_next
-      game.attack_next
-      expect(game.last_attacked_name).to eq('Player One')
-    end
-
-    it "returns player two's name after 49th attack" do
-      allow(player_one).to receive(:name)
-      allow(player_two).to receive(:name).and_return 'Player Two'
-      49.times { game.attack_next }
-      expect(game.last_attacked_name).to eq('Player Two')
+  describe '.create' do
+    it "doesn't error when passed two players" do
+      expect { Game.create(player_one, player_two) }.not_to raise_error
     end
   end
 
-  describe '#players' do
-    it 'returns hash of players' do
-      expect(game.players).to eq({ player_one: player_one, player_two: player_two} )
+  describe '.instance' do
+    it 'returns created instance of the Game class' do
+      Game.create(player_one, player_two)
+      expect(Game.instance).to be_a Game
+    end
+
+    it 'returns the same instance multiple times' do
+      Game.create(player_one, player_two)
+      game_one = Game.instance
+      game_two = Game.instance
+      expect(game_one).to be game_two
     end
   end
-
-
 end
