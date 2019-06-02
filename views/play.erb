@@ -1,10 +1,10 @@
-<%= Game.instance.player_one.name %>
+<%= @game.player_one.name %>
 <p id="player1_HP">
-  <%= Game.instance.player_one.hp %> 
+  <%= @game.player_one.hp %> 
 </p>
 <br>
-<%= Game.instance.player_two.name %> 
+<%= @game.player_two.name %> 
 <p id="player2_HP">
-  <%= Game.instance.player_two.hp %> 
+  <%= @game.player_two.hp %> 
 </p>
 <form action="/attack" method="post"><button type="submit">Attack</button></form>
