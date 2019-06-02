@@ -1,5 +1,7 @@
-<%= session[:player_one] %>
+<%= $player_one.name %>
 <br>
-<%= session[:player_two] %> 
-<p id="player2_HP">10</p>
-<form action="/play" method="post"><button type="submit">Attack</button></form>
+<%= $player_two.name %> 
+<p id="player2_HP">
+  <%= $player_two.hp %> 
+</p>
+<form action="/attack" method="post"><button type="submit">Attack</button></form>
