@@ -21,9 +21,8 @@ class Battle < Sinatra::Base
   end
 
   post '/attack' do
-    $game.attack(:player_two)
+    $game.attack_next
     redirect '/attack'
-    
   end
 
   get '/attack' do
